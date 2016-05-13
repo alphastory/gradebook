@@ -54,7 +54,7 @@ Gradebook.StudentsController = Ember.ArrayController.extend({
 			students.forEach( function( student ){
 				ret += parseInt( student.get( 'grade' ) );
 			});
-			return ret / len;
+			return Math.round( ret / len );
 		} else {
 			return ret;
 		}
