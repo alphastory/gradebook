@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>EmberJS TodoMVC</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+	<script type="text/x-handlebars" data-template-name="students">
+		<!-- Header/New Student -->
+		<header>
+			<h1>Gradebook</h1>
+			{{!-- <input type="text" id="new-student" placeholder="Add Student Name" /> --}}
+			{{input
+				type="text"
+				id="new-student"
+				placeholder="Add Student Name"
+				value=studentName
+				action="createStudent"}}
+		</header>
+
+		<!-- Gradebook -->
+		<section id="main">
+			<ul id="students">
+				<li id="students-heading"><div>Student Name</div><div class="grade">Grade</div><div>Delete</div></li>
+				{{#each student in model itemController="student"}}
+					<li {{bind-attr class="student.isFailing:failing"}}>
+						{{#if student.isEditingName}}
+							<div>{{edit-name class="edit" value=student.name focus-out="acceptNameChanges" insert-newline="acceptNameChanges"}}</div>
+						{{else}}
+							<div {{action "editName" on="doubleClick"}}>{{student.name}}</div>
+						{{/if}}
+						{{#if student.isEditingGrade}}
+							<div class="grade">{{edit-grade class="edit" value=student.grade focus-out="acceptGradeChanges" insert-newline="acceptGradeChanges"}}</div>
+						{{else}}
+							<div class="grade" {{action "editGrade" on="doubleClick"}}>{{student.grade}}</div>
+						{{/if}}
+						<button {{action "removeStudent"}} class="destroy">Remove</button>
+					</li>
+				{{/each}}
+			</ul>
+		</section>
+
+		<!-- Summary -->
+		<section id="summary">
+			<ul>
+				<li><strong>Highest Grade:</strong> {{highestGrade}}</li>
+				<li><strong>Lowest Grade:</strong> {{lowestGrade}}</li>
+				<li><strong>Average Grade:</strong> {{average}}</li>
+			</ul>
+		</section>
+	</script>
+
+	<!-- Dependencies -->
+	<script src="app/libs/jquery.min.js"></script>
+	<script src="app/libs/handlebars.js"></script>
+	<!-- Ember -->
+	<script src="http://emberjs.com.s3.amazonaws.com/getting-started/ember.js"></script>
+	<script src="http://emberjs.com.s3.amazonaws.com/getting-started/ember-data.js"></script>
+	<script src="app/libs/localstorage_adapter.js"></script>
+	<!-- App -->
+	<script src="app/application.js"></script>
+	<script src="app/router.js"></script>
+	<!-- Exaggerate App -->
+	<script src="app/routes/student.js"></script>
+	<script src="app/models/student.js"></script>
+	<script src="app/controllers/students_controller.js"></script>
+	<script src="app/controllers/student_controller.js"></script>
+	<script src="app/views/edit_student_name_view.js"></script>
+	<script src="app/views/edit_student_grade_view.js"></script>
+</body>
+</html>
