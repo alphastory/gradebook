@@ -25,9 +25,19 @@ Gradebook.StudentController = Ember.ObjectController.extend({
 
 		acceptGradeChanges: function(){
 			this.set( 'isEditingGrade', false );
+			var model = this.get( 'model' );
 
-			if( !Ember.isEmpty( this.get( 'model.grade' ) ) ) {
+			if( model.get( 'grade' ) != '' ) {
+				// Is the grade higher than 65?
+				if( this.get( 'grade' ) > 65 ){
+					this.set( 'isFailing', false );
+				} else {
+					this.set( 'isFailing', true );
+				}
+
 				this.get( 'model' ).save();
+			} else {
+				this.set( 'grade', '0' ).save();
 			}
 		},
 

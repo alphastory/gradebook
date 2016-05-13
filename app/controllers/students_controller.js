@@ -23,13 +23,17 @@ Gradebook.StudentsController = Ember.ArrayController.extend({
 	lowestGrade: Ember.computed( function(){
 		var ret = 100;
 		var students = this.get( 'model' );
-		students.forEach( function( student ){
-			if( student.get( 'grade' ) < ret ){
-				ret = student.get( 'grade' );
-			}
-		});
-		return ret;
-	} ).property( '@each.grade' ),
+		if( students.get( 'length' ) > 0 ){
+			students.forEach( function( student ){
+				if( student.get( 'grade' ) < ret ){
+					ret = student.get( 'grade' );
+				}
+			});
+			return ret;
+		} else {
+			return 0;
+		}
+	} ).property( 'model.@each.grade' ),
 
 	highestGrade: Ember.computed( function(){
 		var ret = 0;
@@ -40,15 +44,19 @@ Gradebook.StudentsController = Ember.ArrayController.extend({
 			}
 		});
 		return ret;
-	} ).property( '@each.grade' ),
+	} ).property( 'model.@each.grade' ),
 
 	average: Ember.computed(function(){
 		var students = this.get( 'model' );
 		var len = students.get( 'length' );
 		var ret = 0;
-		students.forEach( function( student ){
-			ret += student.get( 'grade' );
-		});
-		return ret / len;
-	} ).property( 'model.@each.grade'  )
+		if( len > 0 ){
+			students.forEach( function( student ){
+				ret += parseInt( student.get( 'grade' ) );
+			});
+			return ret / len;
+		} else {
+			return ret;
+		}
+	} ).property( 'model.@each.grade' )
 });

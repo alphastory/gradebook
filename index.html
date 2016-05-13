@@ -12,7 +12,8 @@
 		<!-- Header/New Student -->
 		<header>
 			<h1>Gradebook</h1>
-			{{!-- <input type="text" id="new-student" placeholder="Add Student Name" /> --}}
+			
+			<!-- Add a new Student -->
 			{{input
 				type="text"
 				id="new-student"
@@ -26,12 +27,18 @@
 			<ul id="students">
 				<li id="students-heading"><div>Student Name</div><div class="grade">Grade</div><div>Delete</div></li>
 				{{#each student in model itemController="student"}}
+
+					<!-- Toggle the failing class based on the value of this model's isFailing property. -->
 					<li {{bind-attr class="student.isFailing:failing"}}>
+
+						<!-- If the user is editing the name, show the input, otherwise, show the name. -->
 						{{#if student.isEditingName}}
 							<div>{{edit-name class="edit" value=student.name focus-out="acceptNameChanges" insert-newline="acceptNameChanges"}}</div>
 						{{else}}
 							<div {{action "editName" on="doubleClick"}}>{{student.name}}</div>
 						{{/if}}
+
+						<!-- If the user is editing the grade, show the input, otherwise, show the grade. -->
 						{{#if student.isEditingGrade}}
 							<div class="grade">{{edit-grade class="edit" value=student.grade focus-out="acceptGradeChanges" insert-newline="acceptGradeChanges"}}</div>
 						{{else}}
