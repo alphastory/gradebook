@@ -1,12 +1,10 @@
 #EmberJS Exercise
 
-1. Don’t spend much more than a half-day total on it
-
-2. Use Ember.js, but not use Ember CLI (that would be cool)
+1. Use Ember.js, but not use Ember CLI
 
 ###Programming Exercise
 
-1. Use the MV* Javascript framework (in this case useEmber.js) to implement a page that satisfies the user story below.
+1. Use the MV* Javascript framework (in this case use Ember.js) to implement a page that satisfies the user story below.
 
 2. Submit a zip file containing the solution.
 
